@@ -1,0 +1,32 @@
+.wrapper {
+  margin-top: 10rem;
+}
+.conteudo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  height: 50vh;
+  border-radius: 6px;
+  background-color: #4a4a4a;
+
+  form {
+    display: grid;
+    grid-template-columns: 5rem 20rem;
+    gap: 0.5rem;
+    label {
+      color: #fff;
+    }
+    button {
+      grid-column: 1/3;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 0;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      &:hover {
+        background-color: #3f3f3f;
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+header {
+  display: flex;
+
+  .menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    list-style-type: none;
+
+    .navItem {
+      cursor: pointer;
+      &:hover {
+        color: #aaa;
+      }
+    }
+  }
+}
