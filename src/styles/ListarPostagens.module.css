@@ -1,0 +1,11 @@
+.postagens {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.card {
+  padding: 1rem;
+  border: solid 2px white;
+  border-radius: 6px;
+}
