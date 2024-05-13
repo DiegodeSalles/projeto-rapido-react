@@ -9,6 +9,7 @@ header {
     list-style-type: none;
 
     .navItem {
+      text-decoration: none;
       cursor: pointer;
       &:hover {
         color: #aaa;
