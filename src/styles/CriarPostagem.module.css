@@ -1,0 +1,51 @@
+.container {
+  width: 50vw;
+  height: 50vw;
+  background-color: #6d6d6d;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  input {
+    padding: 0.25rem;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  button {
+    background-color: #299b29;
+    color: #000000;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+
+    &:hover {
+      background-color: #1d6b1d;
+      color: white;
+    }
+  }
+}
+
+.resultado {
+  display: flex;
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.sucesso {
+  color: #a5fd72;
+}
+
+.erro {
+  color: #f85454;
+}

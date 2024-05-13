@@ -16,7 +16,9 @@ export function Navbar() {
             </a>
           </li>
           <li>
-            <a className={styles.navItem}>Criar postagem</a>
+            <a href="/criar_postagem" className={styles.navItem}>
+              Criar postagem
+            </a>
           </li>
           <li>
             <a href="/postagens" className={styles.navItem}>
