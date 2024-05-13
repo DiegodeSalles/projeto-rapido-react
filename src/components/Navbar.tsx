@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
 
 export function Navbar() {
@@ -6,24 +7,24 @@ export function Navbar() {
       <nav>
         <ul className={styles.menu}>
           <li>
-            <a href="/" className={styles.navItem}>
+            <NavLink to="/" className={styles.navItem}>
               Criar usuário
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/usuarios" className={styles.navItem}>
+            <NavLink to="/usuarios" className={styles.navItem}>
               Listar usuários
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/criar_postagem" className={styles.navItem}>
+            <NavLink to="/criar_postagem" className={styles.navItem}>
               Criar postagem
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/postagens" className={styles.navItem}>
+            <NavLink to="/postagens" className={styles.navItem}>
               Listar postagens
-            </a>
+            </NavLink>
           </li>
         </ul>
       </nav>
