@@ -1,48 +1,131 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import styles from "../styles/UpdateUserDialog.module.css";
+import React, { FormEvent, useState } from "react";
+import { UserProps } from "../utils/types/UserProps";
 
-export const UpdateUserDialog = () => (
-  <Dialog.Root>
-    <Dialog.Trigger asChild>
-      <button className={`${styles.Button} ${styles.violet}`}>
-        Editar usuário
-      </button>
-    </Dialog.Trigger>
-    <Dialog.Portal>
-      <Dialog.Overlay className={styles.DialogOverlay} />
-      <Dialog.Content className={styles.DialogContent}>
-        <Dialog.Title className={styles.DialogTitle}>
+interface UpdateUserDialogProps {
+  user: UserProps;
+  updateFunction: (user: UserProps) => void;
+}
+
+interface UserDataProps {
+  userData: UserProps;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  updateFunction: (user: UserProps) => void;
+}
+
+interface DialogStateProps {
+  dialogOpen: boolean;
+  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface FormDataDialogProps {
+  userDataProps: UserDataProps;
+  dialogStateProps: DialogStateProps;
+}
+
+export const UpdateUserDialog: React.FC<UpdateUserDialogProps> = ({
+  user,
+  updateFunction,
+}) => {
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const userData = { id: user.id, name, email };
+  const userDataProps: UserDataProps = {
+    userData,
+    setName,
+    setEmail,
+    updateFunction,
+  };
+  const dialogStateProps: DialogStateProps = { dialogOpen, setDialogOpen };
+
+  return (
+    <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
+      <Dialog.Trigger asChild>
+        <button className={`${styles.Button} ${styles.violet}`}>
           Editar usuário
-        </Dialog.Title>
-        <Dialog.Description className={styles.DialogDescription}>
-          Faça alterações no usuário. Clique em salvar quando estiver pronto.
-        </Dialog.Description>
+        </button>
+      </Dialog.Trigger>
+      <FormDataDialog
+        dialogStateProps={dialogStateProps}
+        userDataProps={userDataProps}
+      />
+      <Dialog.Portal>
+        <Dialog.Overlay className={styles.DialogOverlay} />
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+const FormDataDialog: React.FC<FormDataDialogProps> = ({
+  userDataProps,
+  dialogStateProps,
+}) => {
+  const { userData, setName, setEmail, updateFunction } = userDataProps;
+  const { setDialogOpen } = dialogStateProps;
+
+  const isEmailValid = (email: string) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const updatedUser: UserProps = {
+      ...userDataProps.userData,
+      name: userData.name,
+      email: userData.email,
+    };
+    if (isEmailValid(updatedUser.email)) {
+      setDialogOpen(() => false);
+      updateFunction(updatedUser);
+    } else {
+      console.log("Corrija o formulário");
+    }
+  };
+  return (
+    <Dialog.Content className={styles.DialogContent}>
+      <Dialog.Title className={styles.DialogTitle}>Editar usuário</Dialog.Title>
+      <Dialog.Description className={styles.DialogDescription}>
+        Faça alterações no usuário. Clique em salvar quando estiver pronto.
+      </Dialog.Description>
+      <form onSubmit={handleSubmit}>
         <fieldset className={styles.Fieldset}>
           <label className={styles.Label} htmlFor="name">
             Nome
           </label>
-          <input className={styles.Input} id="name" defaultValue="" />
+          <input
+            className={styles.Input}
+            id="name"
+            defaultValue={userData.name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </fieldset>
         <fieldset className={styles.Fieldset}>
-          <label className={styles.Label} htmlFor="username">
+          <label className={styles.Label} htmlFor="email">
             Email
           </label>
-          <input className={styles.Input} id="username" defaultValue="" />
+          <input
+            className={styles.Input}
+            type="email"
+            id="email"
+            defaultValue={userData.email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </fieldset>
         <div className={styles.Div}>
-          <Dialog.Close asChild>
-            <button className={`${styles.Button} ${styles.green}`}>
-              Salvar
-            </button>
-          </Dialog.Close>
+          <button className={`${styles.Button} ${styles.green}`}>Salvar</button>
         </div>
-        <Dialog.Close asChild>
-          <button className={styles.IconButton} aria-label="Close">
-            <Cross2Icon />
-          </button>
-        </Dialog.Close>
-      </Dialog.Content>
-    </Dialog.Portal>
-  </Dialog.Root>
-);
+      </form>
+      <Dialog.Close asChild>
+        <button className={styles.IconButton} aria-label="Close">
+          <Cross2Icon />
+        </button>
+      </Dialog.Close>
+    </Dialog.Content>
+  );
+};

@@ -1,36 +1,38 @@
 import { useEffect, useState } from "react";
 import { UpdateUserDialog } from "../components/UpdateUserDialog";
-
-interface UserProps {
-  id: number;
-  name: string;
-  email: string;
-}
+import { deleteUser } from "../utils/deleteUser";
+import { updateUser } from "../utils/updateUser";
+import { UserProps } from "../utils/types/UserProps";
 
 export function ListarUsuarios() {
   const [usuarios, setUsuarios] = useState<UserProps[]>([]);
 
-  function handleDeletarUsuario(id: number) {
-    deletarUsuario(id);
+  async function handleDeletarUsuario(id: number) {
+    const resultado = await deleteUser(id);
+    if (resultado) {
+      const usuariosAtualizados = usuarios.filter(
+        (usuario) => usuario.id !== id
+      );
+      setUsuarios(usuariosAtualizados);
+    }
   }
 
-  async function deletarUsuario(id: number) {
+  async function handleAtualizarUsuario(user: UserProps) {
+    if (!user.name || !user.email) {
+      return;
+    }
     try {
-      const response = await fetch(`http://localhost:3000/user/${id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        console.log(`Usuário com ID ${id} foi deletado com sucesso.`);
-        const usuariosAtualizados = usuarios.filter(
-          (usuario) => usuario.id !== id
+      const resultado = await updateUser(user);
+      if (resultado) {
+        console.log("Dados atualizados!");
+        setUsuarios(
+          usuarios.map((usuario) => (usuario.id === user.id ? user : usuario))
         );
-        setUsuarios(usuariosAtualizados);
       } else {
-        console.error(`Erro ao deletar o usuário ${id}`);
+        console.error("Algum erro ocorreu.");
       }
     } catch (err) {
-      console.log("Erro ao se comunicar com a API: " + err);
+      console.error("Erro interno da API: " + err);
     }
   }
 
@@ -65,7 +67,10 @@ export function ListarUsuarios() {
                 </button>
               </td>
               <td>
-                <UpdateUserDialog />
+                <UpdateUserDialog
+                  user={usuario}
+                  updateFunction={handleAtualizarUsuario}
+                />
               </td>
             </tr>
           ))}
