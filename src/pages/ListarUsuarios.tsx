@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UpdateUserDialog } from "../components/UpdateUserDialog";
+import { UpdateUserDialog } from "../components/updateUser/UpdateUserDialog";
 import { deleteUser } from "../utils/deleteUser";
 import { updateUser } from "../utils/updateUser";
 import { UserProps } from "../utils/types/UserProps";

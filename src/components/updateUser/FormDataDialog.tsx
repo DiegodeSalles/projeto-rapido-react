@@ -1,67 +1,11 @@
-import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import styles from "../styles/UpdateUserDialog.module.css";
-import React, { FormEvent, useState } from "react";
-import { UserProps } from "../utils/types/UserProps";
+import { FormEvent } from "react";
+import { FormDataDialogProps } from "../../utils/types/UpdateFormProps";
+import * as Dialog from "@radix-ui/react-dialog";
+import { UserProps } from "../../utils/types/UserProps";
+import styles from "../../styles/UpdateUserDialog.module.css";
 
-interface UpdateUserDialogProps {
-  user: UserProps;
-  updateFunction: (user: UserProps) => void;
-}
-
-interface UserDataProps {
-  userData: UserProps;
-  setName: React.Dispatch<React.SetStateAction<string>>;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
-  updateFunction: (user: UserProps) => void;
-}
-
-interface DialogStateProps {
-  dialogOpen: boolean;
-  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface FormDataDialogProps {
-  userDataProps: UserDataProps;
-  dialogStateProps: DialogStateProps;
-}
-
-export const UpdateUserDialog: React.FC<UpdateUserDialogProps> = ({
-  user,
-  updateFunction,
-}) => {
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [dialogOpen, setDialogOpen] = useState(false);
-
-  const userData = { id: user.id, name, email };
-  const userDataProps: UserDataProps = {
-    userData,
-    setName,
-    setEmail,
-    updateFunction,
-  };
-  const dialogStateProps: DialogStateProps = { dialogOpen, setDialogOpen };
-
-  return (
-    <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
-      <Dialog.Trigger asChild>
-        <button className={`${styles.Button} ${styles.violet}`}>
-          Editar usuário
-        </button>
-      </Dialog.Trigger>
-      <FormDataDialog
-        dialogStateProps={dialogStateProps}
-        userDataProps={userDataProps}
-      />
-      <Dialog.Portal>
-        <Dialog.Overlay className={styles.DialogOverlay} />
-      </Dialog.Portal>
-    </Dialog.Root>
-  );
-};
-
-const FormDataDialog: React.FC<FormDataDialogProps> = ({
+export const FormDataDialog: React.FC<FormDataDialogProps> = ({
   userDataProps,
   dialogStateProps,
 }) => {
