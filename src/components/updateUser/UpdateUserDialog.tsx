@@ -1,5 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import styles from "../styles/UpdateUserDialog.module.css";
+import styles from "../../styles/UpdateUserDialog.module.css";
 import React, { useState } from "react";
 import {
   UpdateUserDialogProps,
