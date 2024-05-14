@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { UpdateUserDialog } from "../components/UpdateUserDialog";
 
 interface UserProps {
   id: number;
@@ -50,6 +51,7 @@ export function ListarUsuarios() {
             <th>Nome</th>
             <th>Email</th>
             <th>Deletar</th>
+            <th>Editar</th>
           </tr>
         </thead>
         <tbody>
@@ -61,6 +63,9 @@ export function ListarUsuarios() {
                 <button onClick={() => handleDeletarUsuario(usuario.id)}>
                   Deletar usuário
                 </button>
+              </td>
+              <td>
+                <UpdateUserDialog />
               </td>
             </tr>
           ))}
