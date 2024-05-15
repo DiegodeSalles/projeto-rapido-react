@@ -1,19 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/ListarPostagens.module.css";
 import { UpdatePostDialog } from "../components/updatePost/UpdatePostDialog";
-
-interface PostsProps {
-  id: number;
-  title: string;
-  content: string;
-  published: boolean;
-  createdAt: Date;
-  author: { name: string };
-  authorId: number;
-}
+import { PostProps } from "../utils/types/PostProps";
 
 export function ListarPostagens() {
-  const [postagens, setPostagens] = useState<PostsProps[]>([]);
+  const [postagens, setPostagens] = useState<PostProps[]>([]);
 
   async function deletarPostagem(postId: number, authorId: number) {
     try {
@@ -52,7 +43,6 @@ export function ListarPostagens() {
       setPostagens(data);
     }
     getPostagens();
-    console.log(postagens);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
