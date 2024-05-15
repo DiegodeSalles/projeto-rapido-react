@@ -1,61 +1,58 @@
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { FormEvent, forwardRef } from "react";
-import { FormDataDialogProps } from "../../utils/types/UpdateFormProps";
 import * as Dialog from "@radix-ui/react-dialog";
-import { UserProps } from "../../utils/types/UserProps";
 import styles from "../../styles/UpdateUserDialog.module.css";
-import { isEmailValid } from "../../utils/isEmailValid";
+import { UpdatePostFormProps } from "../../utils/types/UpdatePostFormProps";
+import { PostProps } from "../../utils/types/PostProps";
 
-// Adicione forwardRef aqui
-export const FormDataDialog = forwardRef<HTMLDivElement, FormDataDialogProps>(
-  ({ userDataProps, dialogStateProps }, ref) => {
-    const { userData, setName, setEmail, updateFunction } = userDataProps;
+export const PostFormDialog = forwardRef<HTMLDivElement, UpdatePostFormProps>(
+  ({ postDataProps, dialogStateProps }, ref) => {
+    const { postData, setContent, setTitle, updateFunction } = postDataProps;
     const { setDialogOpen } = dialogStateProps;
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const updatedUser: UserProps = {
-        ...userDataProps.userData,
-        name: userData.name,
-        email: userData.email,
+      const updatedPost: PostProps = {
+        ...postDataProps.postData,
+        title: postData.title,
+        content: postData.content,
       };
-      if (isEmailValid(updatedUser.email)) {
+      if (updatedPost.title || updatedPost.content) {
         setDialogOpen(() => false);
-        updateFunction(updatedUser);
+        updateFunction(updatedPost);
       } else {
-        console.log("Corrija o formulário");
+        console.log("Os campos não podem estar vazios.");
       }
     };
     return (
       <Dialog.Content ref={ref} className={styles.DialogContent}>
         <Dialog.Title className={styles.DialogTitle}>
-          Editar usuário
+          Editar postagem
         </Dialog.Title>
         <Dialog.Description className={styles.DialogDescription}>
-          Faça alterações no usuário. Clique em salvar quando estiver pronto.
+          Faça alterações na postagem. Clique em salvar quando estiver pronto.
         </Dialog.Description>
         <form onSubmit={handleSubmit}>
           <fieldset className={styles.Fieldset}>
-            <label className={styles.Label} htmlFor="name">
-              Nome
+            <label className={styles.Label} htmlFor="title">
+              Título
             </label>
             <input
               className={styles.Input}
-              id="name"
-              defaultValue={userData.name}
-              onChange={(e) => setName(e.target.value)}
+              id="title"
+              defaultValue={postData.title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </fieldset>
           <fieldset className={styles.Fieldset}>
-            <label className={styles.Label} htmlFor="email">
-              Email
+            <label className={styles.Label} htmlFor="content">
+              Conteúdo
             </label>
-            <input
+            <textarea
               className={styles.Input}
-              type="email"
-              id="email"
-              defaultValue={userData.email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="content"
+              defaultValue={postData.content}
+              onChange={(e) => setContent(e.target.value)}
             />
           </fieldset>
           <div className={styles.Div}>

@@ -1,6 +1,6 @@
 import { UserDataProps, DialogStateProps } from "./UpdateUserProps";
 
-export interface FormDataDialogProps {
+export interface UpdateUserFormProps {
   userDataProps: UserDataProps;
   dialogStateProps: DialogStateProps;
 }

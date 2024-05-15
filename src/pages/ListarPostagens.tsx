@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/ListarPostagens.module.css";
+import { UpdatePostDialog } from "../components/updatePost/UpdatePostDialog";
 
 interface PostsProps {
   id: number;
@@ -40,6 +41,10 @@ export function ListarPostagens() {
     deletarPostagem(postId, authorId);
   }
 
+  function handleAtualizarPostagem(postId: number) {
+    console.log("ok " + postId);
+  }
+
   useEffect(() => {
     async function getPostagens() {
       const response = await fetch("http://localhost:3000/users/posts");
@@ -70,6 +75,10 @@ export function ListarPostagens() {
           >
             Deletar postagem
           </button>
+          <UpdatePostDialog
+            post={postagem}
+            updateFunction={handleAtualizarPostagem}
+          />
         </div>
       ))}
     </div>
