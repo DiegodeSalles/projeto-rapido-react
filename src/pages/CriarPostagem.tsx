@@ -51,7 +51,7 @@ export function CriarPostagem() {
         if (invalid) setInvalid(() => false);
         resultado!.textContent = "Postagem realizada com sucesso!";
         setFormData({
-          authorId: 0,
+          authorId: formData.authorId,
           title: "",
           content: "",
           publishedAt: new Date(),
