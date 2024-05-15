@@ -20,8 +20,10 @@
   }
 
   button {
+    display: flex;
+    justify-content: center;
     background-color: #299b29;
-    color: #000000;
+    color: #363535;
     border: none;
     padding: 0.5rem;
     cursor: pointer;

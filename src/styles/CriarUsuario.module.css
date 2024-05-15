@@ -19,12 +19,6 @@
       color: #fff;
     }
 
-    input {
-      padding: 0.125rem;
-      background-color: white;
-      color: black;
-    }
-
     button {
       display: flex;
       justify-content: center;

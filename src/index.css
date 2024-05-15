@@ -12,3 +12,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+input {
+  padding: 0.125rem;
+  background-color: #3b3b3b;
+  color: white;
+}
