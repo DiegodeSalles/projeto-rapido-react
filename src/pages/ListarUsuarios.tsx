@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UpdateUserDialog } from "../components/updateUser/UpdateUserDialog";
-import { deleteUser } from "../utils/deleteUser";
-import { updateUser } from "../utils/updateUser";
+import { deleteUser } from "../utils/usuario/deleteUser";
+import { updateUser } from "../utils/usuario/updateUser";
 import { UserProps } from "../utils/types/UserProps";
 
 export function ListarUsuarios() {

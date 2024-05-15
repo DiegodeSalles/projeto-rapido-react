@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/ListarPostagens.module.css";
 import { UpdatePostDialog } from "../components/updatePost/UpdatePostDialog";
 import { PostProps } from "../utils/types/PostProps";
+import { updatePost } from "../utils/postagem/updatePost";
 
 export function ListarPostagens() {
   const [postagens, setPostagens] = useState<PostProps[]>([]);
@@ -32,8 +33,25 @@ export function ListarPostagens() {
     deletarPostagem(postId, authorId);
   }
 
-  function handleAtualizarPostagem(postId: number) {
-    console.log("ok " + postId);
+  async function handleAtualizarPostagem(post: PostProps) {
+    if (!post.content || !post.title) {
+      return;
+    }
+    try {
+      const resultado = await updatePost(post);
+      if (resultado) {
+        console.log("Postagem atualizada!");
+        setPostagens(
+          postagens.map((postagem) =>
+            postagem.id === post.id ? post : postagem
+          )
+        );
+      } else {
+        console.log("Algum erro aconteceu.");
+      }
+    } catch (err) {
+      console.log("erro");
+    }
   }
 
   useEffect(() => {

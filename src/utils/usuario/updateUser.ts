@@ -1,4 +1,4 @@
-import { UserProps } from "./types/UserProps";
+import { UserProps } from "../types/UserProps";
 
 export async function updateUser({ id, name, email }: UserProps) {
   try {

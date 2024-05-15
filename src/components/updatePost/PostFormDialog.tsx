@@ -17,7 +17,7 @@ export const PostFormDialog = forwardRef<HTMLDivElement, UpdatePostFormProps>(
         title: postData.title,
         content: postData.content,
       };
-      if (updatedPost.title || updatedPost.content) {
+      if (updatedPost.title && updatedPost.content) {
         setDialogOpen(() => false);
         updateFunction(updatedPost);
       } else {
