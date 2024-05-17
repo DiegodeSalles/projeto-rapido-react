@@ -1,10 +1,6 @@
 import { useState } from "react";
 import styles from "../styles/CriarUsuario.module.css";
-
-interface UserDataProps {
-  email: string;
-  name: string;
-}
+import { UserDataProps } from "../utils/types/UserProps";
 
 export default function CriarUsuario() {
   const [formData, setFormData] = useState<UserDataProps>({

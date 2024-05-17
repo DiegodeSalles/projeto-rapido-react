@@ -3,3 +3,8 @@ export interface UserProps {
   name: string;
   email: string;
 }
+
+export interface UserDataProps {
+  name: string;
+  email: string;
+}
