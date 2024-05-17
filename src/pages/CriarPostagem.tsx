@@ -1,30 +1,19 @@
-import { useEffect, useState } from "react";
 import styles from "../styles/CriarPostagem.module.css";
-
-interface UserProps {
-  id: number;
-  name: string;
-  email: string;
-}
-
-interface formDataProps {
-  authorId: number;
-  title: string;
-  content: string;
-  publishedAt: Date;
-  published: boolean;
-}
+import { useEffect, useState } from "react";
+import { PostFormDataProps } from "../utils/types/PostFormDataProps";
+import { UserProps } from "../utils/types/UserProps";
+import { createPost } from "../utils/postagem/createPost";
 
 export function CriarPostagem() {
   const [usuarios, setUsuarios] = useState<UserProps[]>([]);
-  const [formData, setFormData] = useState<formDataProps>({
+  const [invalid, setInvalid] = useState(false);
+  const [formData, setFormData] = useState<PostFormDataProps>({
     authorId: 0,
     title: "",
     content: "",
     publishedAt: new Date(),
     published: true,
   });
-  const [invalid, setInvalid] = useState(false);
 
   async function handleCreatePost(e: React.FormEvent) {
     const resultado = document.querySelector("#resultado");
@@ -36,32 +25,15 @@ export function CriarPostagem() {
       return;
     }
 
-    try {
-      const response = await fetch(
-        `http://localhost:3000/user/${formData.authorId}/post/create`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-      if (response.ok) {
-        if (invalid) setInvalid(() => false);
-        resultado!.textContent = "Postagem realizada com sucesso!";
-        setFormData({
-          authorId: formData.authorId,
-          title: "",
-          content: "",
-          publishedAt: new Date(),
-          published: true,
-        });
-      } else {
-        console.error("Erro: " + response.statusText);
-      }
-    } catch (err) {
-      console.error("Erro no servidor da API: " + err);
+    const sucesso = await createPost({
+      authorId: formData.authorId,
+      formData,
+      setFormData,
+    });
+
+    if (sucesso) {
+      if (invalid) setInvalid(() => false);
+      resultado!.textContent = "Postagem realizada com sucesso!";
     }
   }
 
