@@ -1,36 +1,15 @@
-import { useEffect, useState } from "react";
 import styles from "../styles/ListarPostagens.module.css";
+import { useEffect, useState } from "react";
 import { UpdatePostDialog } from "../components/updatePost/UpdatePostDialog";
 import { PostProps } from "../utils/types/PostProps";
 import { updatePost } from "../utils/postagem/updatePost";
+import { deletarPostagem } from "../utils/postagem/deletePost";
 
 export function ListarPostagens() {
   const [postagens, setPostagens] = useState<PostProps[]>([]);
 
-  async function deletarPostagem(postId: number, authorId: number) {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/user/${authorId}/post/${postId}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (response.ok) {
-        console.log("Postagem deletada.");
-        const postagensAtualizadas = postagens.filter(
-          (postagem) => postagem.id !== postId
-        );
-        setPostagens(postagensAtualizadas);
-      } else {
-        console.error("Erro ao deletar a postagem.");
-      }
-    } catch (err) {
-      console.error("Erro ao se comunicar com a API: " + err);
-    }
-  }
-
   function handleDeletarPostagem(postId: number, authorId: number) {
-    deletarPostagem(postId, authorId);
+    deletarPostagem({ authorId, postId, postagens, setPostagens });
   }
 
   async function handleAtualizarPostagem(post: PostProps) {
