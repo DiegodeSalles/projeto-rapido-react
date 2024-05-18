@@ -14,6 +14,14 @@ header {
       &:hover {
         color: #aaa;
       }
+
+      &:visited {
+        color: #5c91c5;
+      }
+
+      &:hover {
+        color: #044e97;
+      }
     }
   }
 }

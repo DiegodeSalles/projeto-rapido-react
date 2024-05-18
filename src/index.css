@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #141110;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,6 +15,6 @@
 
 input {
   padding: 0.125rem;
-  background-color: #3b3b3b;
+  background-color: #1c1917;
   color: white;
 }

@@ -1,7 +1,7 @@
 .container {
   width: 50vw;
   height: 50vw;
-  background-color: #6d6d6d;
+  background-color: #302a27;
   overflow: hidden;
   padding: 2rem;
 }
@@ -11,11 +11,16 @@
   flex-direction: column;
   gap: 0.5rem;
 
+  select {
+    background-color: #262220;
+  }
+
   input {
     padding: 0.25rem;
   }
 
   textarea {
+    background-color: #262220;
     resize: none;
   }
 
