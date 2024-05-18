@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { PostFormDataProps } from "../utils/types/PostFormDataProps";
 import { UserProps } from "../utils/types/UserProps";
 import { createPost } from "../utils/postagem/createPost";
+import { Dropdown } from "../components/getPost/Dropdown";
 
 export function CriarPostagem() {
   const [usuarios, setUsuarios] = useState<UserProps[]>([]);
@@ -65,7 +66,12 @@ export function CriarPostagem() {
   }, []);
   return (
     <div className={styles.container}>
-      <form className={styles.formulario} onSubmit={handleCreatePost}>
+      <Dropdown />
+      <form
+        id="formulario"
+        className={styles.formulario}
+        onSubmit={handleCreatePost}
+      >
         <label htmlFor="authorId">Usuarios</label>
         <select
           name="authorId"
